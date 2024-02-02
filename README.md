@@ -3,4 +3,5 @@
 <br/>
 <p>
   <img src="https://img.shields.io/badge/-SWIFT-F05032?style=for-the-badge&logo=html5&logoColor=ffffff">
+  <img alt="Swift" src ="https://img.shields.io/badge/Swift-3776AB.svg?&style=for-the-badge&logo=Swift&logoColor=white"/>
 </p>
