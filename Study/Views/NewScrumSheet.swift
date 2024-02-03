@@ -9,6 +9,7 @@ import SwiftUI
 
 struct NewScrumSheet: View {
     @State private var newScrum = DailyScrum.emptyScrum
+    @State private var showAlert = false
     @Binding var scrums: [DailyScrum]
     @Binding var isPresentingNewScrumView: Bool
     
@@ -23,8 +24,18 @@ struct NewScrumSheet: View {
                     }
                     ToolbarItem(placement: .confirmationAction) {
                         Button("Add") {
-                            scrums.append(newScrum)
-                            isPresentingNewScrumView = false
+                            if !newScrum.title.isEmpty{
+                                scrums.append(newScrum)
+                                isPresentingNewScrumView = false
+                            }else {
+                                showAlert = true
+                            }
+                        }
+                        .alert(isPresented: $showAlert) {
+                            Alert(
+                                title: Text("Current Action Not Available"),
+                                message: Text("Please Write Title")
+                            )
                         }
                     }
                 }
