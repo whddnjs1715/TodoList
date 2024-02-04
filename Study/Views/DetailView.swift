@@ -9,7 +9,7 @@ import SwiftUI
     
 struct DetailView: View {
     @Binding var scrum: DailyScrum
-    
+    @State private var showAlert = false
     @State private var editingScrum = DailyScrum.emptyScrum
     @State private var isPresentingEditView = false
     
@@ -53,8 +53,18 @@ struct DetailView: View {
                         }
                         ToolbarItem(placement: .confirmationAction) {
                                Button("Done") {
-                                   isPresentingEditView = false
-                                   scrum = editingScrum
+                                   if !editingScrum.title.isEmpty{
+                                       isPresentingEditView = false
+                                       scrum = editingScrum
+                                   }else {
+                                       showAlert = true
+                                   }
+                               }
+                               .alert(isPresented: $showAlert) {
+                                   Alert(
+                                    title: Text("Current Action Not Available"),
+                                    message: Text("Please Write Title")
+                                   )
                                }
                            }
                     }
