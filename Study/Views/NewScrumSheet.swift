@@ -13,6 +13,12 @@ struct NewScrumSheet: View {
     @Binding var scrums: [DailyScrum]
     @Binding var isPresentingNewScrumView: Bool
     
+    func containTitle(name: String) -> Bool{
+        return scrums.contains{ scrums in
+            return scrums.title == name
+        }
+    }
+    
     var body: some View {
         NavigationStack {
             DetailEditView(scrum: $newScrum)
@@ -24,11 +30,13 @@ struct NewScrumSheet: View {
                     }
                     ToolbarItem(placement: .confirmationAction) {
                         Button("Add") {
-                            if !newScrum.title.isEmpty{
+                            if containTitle(name: newScrum.title) {
+                                showAlert = true
+                            }else if newScrum.title.isEmpty{
+                                showAlert = true
+                            }else {
                                 scrums.append(newScrum)
                                 isPresentingNewScrumView = false
-                            }else {
-                                showAlert = true
                             }
                         }
                         .alert(isPresented: $showAlert) {
