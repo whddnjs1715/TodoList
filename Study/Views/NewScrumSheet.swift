@@ -10,6 +10,8 @@ import SwiftUI
 struct NewScrumSheet: View {
     @State private var newScrum = DailyScrum.emptyScrum
     @State private var showAlert = false
+    @State private var alertMessage = ""
+    
     @Binding var scrums: [DailyScrum]
     @Binding var isPresentingNewScrumView: Bool
     
@@ -32,8 +34,10 @@ struct NewScrumSheet: View {
                         Button("Add") {
                             if containTitle(name: newScrum.title) {
                                 showAlert = true
+                                alertMessage = "It is already exit"
                             }else if newScrum.title.isEmpty{
                                 showAlert = true
+                                alertMessage = "Please Write Title"
                             }else {
                                 scrums.append(newScrum)
                                 isPresentingNewScrumView = false
@@ -42,7 +46,7 @@ struct NewScrumSheet: View {
                         .alert(isPresented: $showAlert) {
                             Alert(
                                 title: Text("Current Action Not Available"),
-                                message: Text("Please Write Title")
+                                message: Text(alertMessage)
                             )
                         }
                     }
