@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct NewScrumSheet: View {
+    @Binding var scrums: [DailyScrum]
+    @Binding var isPresentingNewScrumView: Bool
+    
     @State private var newScrum = DailyScrum.emptyScrum
     @State private var showAlert = false
     @State private var alertMessage = ""
-    
-    @Binding var scrums: [DailyScrum]
-    @Binding var isPresentingNewScrumView: Bool
     
     func containTitle(name: String) -> Bool{
         return scrums.contains{ scrums in

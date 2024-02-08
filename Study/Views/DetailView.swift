@@ -9,9 +9,18 @@ import SwiftUI
     
 struct DetailView: View {
     @Binding var scrum: DailyScrum
+    @Binding var scrums: [DailyScrum]
+    
     @State private var showAlert = false
     @State private var editingScrum = DailyScrum.emptyScrum
     @State private var isPresentingEditView = false
+    @State private var alertMessage = ""
+    
+    func containTitle(name: String) -> Bool{
+        return scrums.contains{ scrums in
+            return scrums.title == name
+        }
+    }
     
     var body: some View {
         List {
@@ -53,17 +62,21 @@ struct DetailView: View {
                         }
                         ToolbarItem(placement: .confirmationAction) {
                                Button("Done") {
-                                   if !editingScrum.title.isEmpty{
+                                   if containTitle(name: editingScrum.title){
+                                       showAlert = true
+                                       alertMessage = "It is already exit"
+                                   }else if editingScrum.title.isEmpty {
+                                       showAlert = true
+                                       alertMessage = "Please Write Title"
+                                   }else {
                                        isPresentingEditView = false
                                        scrum = editingScrum
-                                   }else {
-                                       showAlert = true
                                    }
                                }
                                .alert(isPresented: $showAlert) {
                                    Alert(
                                     title: Text("Current Action Not Available"),
-                                    message: Text("Please Write Title")
+                                    message: Text(alertMessage)
                                    )
                                }
                            }
@@ -75,6 +88,6 @@ struct DetailView: View {
 
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailView(scrum: .constant(DailyScrum.sampleData[0]))
+        DetailView(scrum: .constant(DailyScrum.sampleData[0]), scrums: .constant(DailyScrum.sampleData))
     }
 }

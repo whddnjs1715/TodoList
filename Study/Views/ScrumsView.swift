@@ -17,7 +17,7 @@ struct ScrumsView: View {
         NavigationStack{
             List {
                 ForEach($scrums){ $scrum in
-                        NavigationLink(destination: DetailView(scrum: $scrum)){
+                        NavigationLink(destination: DetailView(scrum: $scrum, scrums: $scrums)){
                             CardView(scrum: scrum)
                                 .listRowBackground(scrum.theme.mainColor)
                         }
