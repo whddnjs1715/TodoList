@@ -64,7 +64,7 @@ struct DetailView: View {
                                Button("Done") {
                                    if containTitle(name: editingScrum.title){
                                        showAlert = true
-                                       alertMessage = "It is already exit"
+                                       alertMessage = "It is already exist"
                                    }else if editingScrum.title.isEmpty {
                                        showAlert = true
                                        alertMessage = "Please Write Title"

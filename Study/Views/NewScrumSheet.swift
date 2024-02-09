@@ -34,7 +34,7 @@ struct NewScrumSheet: View {
                         Button("Add") {
                             if containTitle(name: newScrum.title) {
                                 showAlert = true
-                                alertMessage = "It is already exit"
+                                alertMessage = "It is already exist"
                             }else if newScrum.title.isEmpty{
                                 showAlert = true
                                 alertMessage = "Please Write Title"
